@@ -2,12 +2,12 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import app from "./app.js";
-import { database} from "./config/db.js";
+import {DatabaseSocailLogin} from "./config/db.js";
 
 const PORT = process.env.PORT || 3000;
 
 // Connect to DB first
-database();
+DatabaseSocailLogin();
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
