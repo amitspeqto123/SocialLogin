@@ -9,7 +9,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 
 //import authRoutes from "./routes/authRoute.js";
-import authRoute from "./routes/userRoute.js";
+import authRoute from "./routes/auth.route.js";
 
 const app = express();
 
