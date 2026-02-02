@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import { User } from "../models/user.js";
 import { githubStrategy } from "./githubStrategy.js";
 import { googleStrategy } from "./googleStrategy.js";
+import { facebookStrategy } from "./facebookStrategy.js";
 
 dotenv.config();
 
@@ -36,6 +37,7 @@ dotenv.config();
 
 passport.use(githubStrategy);
 passport.use(googleStrategy);
+passport.use(facebookStrategy);
 
 passport.serializeUser((user, done) => done(null, user._id));
 passport.deserializeUser(async (id, done) => {

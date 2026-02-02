@@ -1,6 +1,5 @@
 import dotenv from "dotenv";
 dotenv.config();
-import passport from "passport";
 import { Strategy as GitHubStrategy } from "passport-github2";
 import { User } from "../models/user.js";
 
@@ -19,7 +18,7 @@ export const githubStrategy = new GitHubStrategy(
       if (!user) {
         user = await User.create({
           name: profile.username,
-          email: profile.emails?.[0]?.value || `${profile.username}@github.com`, // ✅ safe
+          email: profile.emails?.[0]?.value || `${profile.username}@github.com`,
           provider: "github",
           providerId: profile.id,
         });

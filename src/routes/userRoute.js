@@ -1,6 +1,6 @@
 import express from "express";
 import passport from "passport";
-import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken";
 
 const router = express.Router();
 
@@ -44,6 +44,38 @@ router.get(
     // Response me token bhej do
     res.json({
       message: "GitHub login success",
+      token,
+      user: req.user,
+    });
+  },
+);
+
+// Facebook login
+router.get(
+  "/facebook",
+  passport.authenticate("facebook", { scope: ["email"] }),
+);
+
+// Facebook callback
+router.get(
+  "/facebook/callback",
+  passport.authenticate("facebook", {
+    session: false,
+    failureRedirect: "/login",
+  }),
+  (req, res) => {
+    const token = jwt.sign(
+      {
+        id: req.user._id,
+        email: req.user.email,
+        provider: req.user.provider,
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" },
+    );
+
+    res.json({
+      message: "Facebook login success",
       token,
       user: req.user,
     });
