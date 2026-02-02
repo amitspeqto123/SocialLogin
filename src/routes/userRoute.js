@@ -1,10 +1,21 @@
 import express from "express";
-import { googleLogin, googleCallback, googleFailure } from "../controllers/userController.js";
+import passport from "passport";
 
 const router = express.Router();
 
-router.get("/google", googleLogin);                // start login
-router.get("/google/callback", googleCallback);   // callback
-router.get("/google/failure", googleFailure);     // failure
+router.get(
+  "/google",
+  passport.authenticate("google", { scope: ["profile", "email"] }),
+);
 
+router.get(
+  "/google/callback",
+  passport.authenticate("google", { failureRedirect: "/login" }),
+  (req, res) => {
+    res.json({
+      message: "Google login success",
+      user: req.user,
+    });
+  },
+);
 export default router;
