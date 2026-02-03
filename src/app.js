@@ -10,6 +10,7 @@ import morgan from "morgan";
 
 //import authRoutes from "./routes/authRoute.js";
 import authRoute from "./routes/auth.route.js";
+import productRoute from "./routes/product.route.js"
 
 const app = express();
 
@@ -35,5 +36,6 @@ app.use(passport.session());
 import "./config/passport.js";
 // Routes
 app.use("/auth", authRoute);
+app.use("/product", productRoute);
 
 export default app;

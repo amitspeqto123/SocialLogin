@@ -1,6 +1,7 @@
+import jwt from "jsonwebtoken"
 
-// Session based authentications
-function isAuthenticated(req, res, next) {  
+// session based authenicated
+export const isAuthenticated = (req, res, next) => {
   if (req.isAuthenticated) {
     return next();
   }
@@ -8,15 +9,16 @@ function isAuthenticated(req, res, next) {
     success: false,
     message: "UnAuthrozied Please login",
   });
-}
+};
 
 // jwt based authentictions
 export const authenticateJWT = (req, res, next) => {
   const authHeader = req.headers.authorization;
-  if (!authHeader) return res.sendStatus(401).json({
-    success: false,
-    message: "UnAuthrozied Please login"
-  })
+  if (!authHeader)
+    return res.sendStatus(401).json({
+      success: false,
+      message: "UnAuthrozied Please login",
+    });
 
   const token = authHeader.split(" ")[1];
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
